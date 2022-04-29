@@ -74,13 +74,13 @@ We share Fairseq's instructions on how to prepare the data here.
 
 ```bash
 mkdir -p datasets/wikitext-103
-cp examples/language_model/wikitext-103/prepare-wikitext-103.sh datasets/wikitext-103
+cp examples/language_model/prepare-wikitext-103.sh datasets/wikitext-103/
 
 cd datasets/wikitext-103
 bash prepare-wikitext-103.sh
 cd ../..
 
-TEXT=datasets/wikitext-103
+TEXT=datasets/wikitext-103/wikitext-103
 python preprocess.py \
     --only-source \
     --trainpref $TEXT/wiki.train.tokens \
@@ -102,7 +102,7 @@ wget https://nlp.stanford.edu/projects/knnlm/wt103_checkpoint_best.pt -P knnlm_c
 mkdir -p dstore
 
 python eval_lm.py data-bin/wikitext-103 \
-    --path knnlm_ckpt/checkpoint_best.pt \
+    --path knnlm_ckpt/wt103_checkpoint_best.pt \
     --sample-break-mode none --max-tokens 3072 \
     --softmax-batch 1024 --gen-subset train \
     --context-window 1536 --tokens-per-sample 1536 \
